@@ -1,0 +1,94 @@
+[package]
+name = "citadel-envelope"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+
+# Package metadata for crates.io
+description = "Hybrid post-quantum encryption: X25519 + ML-KEM-768 + AES-256-GCM"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/mrcord77/rust_citadel"
+homepage = "https://github.com/mrcord77/rust_citadel"
+documentation = "https://docs.rs/citadel-envelope"
+readme = "README.md"
+keywords = ["cryptography", "post-quantum", "encryption", "ml-kem", "hybrid"]
+categories = ["cryptography", "no-std"]
+
+# Include important files
+include = [
+    "src/**/*",
+    "Cargo.toml",
+    "README.md",
+    "LICENSE-MIT",
+    "LICENSE-APACHE",
+    "SECURITY.md",
+    "SPEC.md",
+    "API_FREEZE.md",
+]
+
+[lib]
+name = "citadel_envelope"
+path = "src/lib.rs"
+
+# CLI binary
+[[bin]]
+name = "citadel"
+path = "src/bin/citadel.rs"
+required-features = ["cli"]
+
+[dependencies]
+# Post-quantum KEM (FIPS 203)
+ml-kem = { version = "0.2", features = ["zeroize"] }
+
+# Classical ECDH for hybrid defense-in-depth
+x25519-dalek = { version = "2", features = ["static_secrets"] }
+
+# Symmetric cryptography
+aes-gcm = { version = "0.10", features = ["aes"] }
+hkdf = "0.12"
+sha2 = "0.10"
+sha3 = "0.10"
+
+# Constant-time operations
+subtle = "2.5"
+
+# Secure random number generation
+rand_core = { version = "0.6", features = ["getrandom"] }
+getrandom = "0.2"
+
+# Memory zeroing for sensitive data
+zeroize = { version = "1.7", features = ["derive"] }
+
+[dev-dependencies]
+hex = "0.4"
+proptest = "1.4"
+criterion = "0.5"
+
+[features]
+default = []
+
+# Enable std features (file I/O, etc.)
+std = []
+
+# Enable CLI binary
+cli = ["std"]
+
+# Deterministic mode for Known Answer Tests - NEVER use in production
+kat = []
+
+[[bench]]
+name = "timing"
+harness = false
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "unwind"
+
+[profile.release-with-debug]
+inherits = "release"
+debug = true
+
+# Badges for crates.io
+[badges]
+maintenance = { status = "actively-developed" }

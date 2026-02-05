@@ -1,0 +1,8 @@
+﻿/target/
+/fuzz/target/
+/fuzz/corpus/
+/fuzz/artifacts/
+*.ctd
+mykey.pub
+mykey.sec
+secret.txt
