@@ -1,7 +1,0 @@
-[workspace]
-members = [
-    "citadel-envelope",
-    "citadel-keystore",
-    "citadel-api",
-]
-resolver = "2"

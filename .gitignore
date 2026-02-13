@@ -17,3 +17,12 @@ citadel-backups/
 citadel-data/
 .env
 api-keys.json
+
+body.json
+citadel-audit.jsonl
+test_output.txt
+*.bak
+*.workspace
+citadel-validation-*.txt
+citadel-backups/
+citadel-data/
