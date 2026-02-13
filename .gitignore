@@ -26,3 +26,11 @@ test_output.txt
 citadel-validation-*.txt
 citadel-backups/
 citadel-data/
+
+body.json
+citadel-audit.jsonl
+test_output.txt
+*.bak
+citadel-validation-*.txt
+citadel-backups/
+citadel-data/
