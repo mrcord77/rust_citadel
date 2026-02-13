@@ -1,0 +1,210 @@
+cargo:rerun-if-env-changed=CUSTOM_LIBFUZZER_PATH
+cargo:rerun-if-changed=libfuzzer\FuzzerCrossOver.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerDataFlowTrace.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerDriver.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerExtFunctionsDlsym.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerExtFunctionsWeak.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerExtFunctionsWindows.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerExtraCounters.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerExtraCountersDarwin.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerExtraCountersWindows.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerFork.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerInterceptors.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerIO.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerIOPosix.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerIOWindows.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerLoop.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerMain.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerMerge.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerMutate.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerSHA1.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerTracePC.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerUtil.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerUtilDarwin.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerUtilFuchsia.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerUtilLinux.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerUtilPosix.cpp
+cargo:rerun-if-changed=libfuzzer\FuzzerUtilWindows.cpp
+OUT_DIR = Some(C:\users\andre\downloads\R_Citadel\fuzz\target\x86_64-pc-windows-msvc\release\build\libfuzzer-sys-a65d633212f628a8\out)
+OPT_LEVEL = Some(3)
+TARGET = Some(x86_64-pc-windows-msvc)
+CARGO_ENCODED_RUSTFLAGS = Some(-Cpasses=sancov-module-Cllvm-args=-sanitizer-coverage-level=4-Cllvm-args=-sanitizer-coverage-inline-8bit-counters-Cllvm-args=-sanitizer-coverage-pc-table-Cllvm-args=-sanitizer-coverage-trace-compares--cfgfuzzing-Cllvm-args=-simplifycfg-branch-fold-threshold=0-Zsanitizer=address-Cdebug-assertions-Clink-arg=/include:main-Ccodegen-units=1)
+cargo:rerun-if-env-changed=VCINSTALLDIR
+VCINSTALLDIR = None
+cargo:rerun-if-env-changed=VSTEL_MSBuildProjectFullPath
+VSTEL_MSBuildProjectFullPath = None
+cargo:rerun-if-env-changed=VCToolsVersion
+VCToolsVersion = None
+cargo:rerun-if-env-changed=VSCMD_ARG_VCVARS_SPECTRE
+VSCMD_ARG_VCVARS_SPECTRE = None
+cargo:rerun-if-env-changed=WindowsSdkDir
+WindowsSdkDir = None
+cargo:rerun-if-env-changed=WindowsSDKVersion
+WindowsSDKVersion = None
+cargo:rerun-if-env-changed=LIB
+LIB = None
+PATH = Some(C:\users\andre\downloads\R_Citadel\fuzz\target\release;C:\users\andre\downloads\R_Citadel\fuzz\target\release\deps;C:\Users\andre\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\libnvvp;C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot\bin;C:\Program Files\Microsoft\jdk-17.0.16.8-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\msys64\mingw64\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Users\andre\Downloads\bowtie2-2.5.4-win-x86_64\bowtie2-2.5.4-mingw-aarch64;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\Nsight Compute 2024.3.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Docker\Docker\resources\bin;C:\Users\andre\.pyenv\pyenv-win\bin;C:\Users\andre\.pyenv\pyenv-win\shims;C:\Users\andre\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\andre\AppData\Local\Programs\Python\Python311\;C:\Users\andre\.cargo\bin;C:\Users\andre\AppData\Local\Microsoft\WindowsApps;C:\Windows.old.000\Users\andre\My Documents;C:\Users\andre\.dotnet\tools;C:\Users\andre\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\andre\AppData\Local\Muse Hub\lib;C:\Users\andre\AppData\Roaming\npm;C:\Users\andre\Downloads\bowtie2-2.5.4-win-x86_64\bowtie2-2.5.4-mingw-aarch64;C:\Users\andre\AppData\Local\Programs\Ollama;C:\Users\andre\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\bin)
+cargo:rerun-if-env-changed=INCLUDE
+INCLUDE = None
+HOST = Some(x86_64-pc-windows-msvc)
+cargo:rerun-if-env-changed=CXX_x86_64-pc-windows-msvc
+CXX_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CXX_x86_64_pc_windows_msvc
+CXX_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_CXX
+HOST_CXX = None
+cargo:rerun-if-env-changed=CXX
+CXX = None
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some(cmpxchg16b,fxsr,lahfsahf,sse,sse2,sse3,x87)
+DEBUG = Some(true)
+cargo:rerun-if-env-changed=CXXFLAGS
+CXXFLAGS = None
+cargo:rerun-if-env-changed=HOST_CXXFLAGS
+HOST_CXXFLAGS = None
+cargo:rerun-if-env-changed=CXXFLAGS_x86_64_pc_windows_msvc
+CXXFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=CXXFLAGS_x86_64-pc-windows-msvc
+CXXFLAGS_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+FuzzerCrossOver.cpp
+FuzzerDriver.cpp
+FuzzerDataFlowTrace.cpp
+FuzzerExtFunctionsDlsym.cpp
+FuzzerExtFunctionsWeak.cpp
+FuzzerExtFunctionsWindows.cpp
+FuzzerExtraCounters.cpp
+FuzzerExtraCountersDarwin.cpp
+FuzzerExtraCountersWindows.cpp
+FuzzerFork.cpp
+FuzzerInterceptors.cpp
+FuzzerIO.cpp
+FuzzerIOPosix.cpp
+FuzzerIOWindows.cpp
+FuzzerLoop.cpp
+FuzzerMain.cpp
+FuzzerMerge.cpp
+FuzzerMutate.cpp
+FuzzerSHA1.cpp
+FuzzerTracePC.cpp
+FuzzerUtil.cpp
+FuzzerUtilDarwin.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\istream(684): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\istream(684): note: the template instantiation context (the oldest one first) is
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\istream(720): note: see reference to class template instantiation 'std::basic_istream<char,std::char_traits<char>>' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\istream(680): note: while compiling class template member function 'std::fpos<_Mbstatet> std::basic_istream<char,std::char_traits<char>>::tellg(void)'
+libfuzzer\FuzzerIO.cpp(49): note: see the first reference to 'std::basic_istream<char,std::char_traits<char>>::tellg' in 'fuzzer::FileToVector'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(316): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(316): note: the template instantiation context (the oldest one first) is
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(684): note: see reference to class template instantiation 'std::basic_ostream<char,std::char_traits<char>>' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(309): note: while compiling class template member function 'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned int)'
+libfuzzer\FuzzerSHA1.cpp(214): note: see the first reference to 'std::basic_ostream<char,std::char_traits<char>>::operator <<' in 'fuzzer::Sha1ToString'
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+FuzzerUtilFuchsia.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\istream(684): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\istream(684): note: the template instantiation context (the oldest one first) is
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\istream(720): note: see reference to class template instantiation 'std::basic_istream<char,std::char_traits<char>>' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\istream(680): note: while compiling class template member function 'std::fpos<_Mbstatet> std::basic_istream<char,std::char_traits<char>>::tellg(void)'
+libfuzzer\FuzzerMerge.cpp(520): note: see the first reference to 'std::basic_istream<char,std::char_traits<char>>::tellg' in 'fuzzer::CrashResistantMerge'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+FuzzerUtilLinux.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+FuzzerUtilPosix.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(829): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(829): note: the template instantiation context (the oldest one first) is
+libfuzzer\FuzzerIOWindows.cpp(146): note: see reference to class template instantiation 'std::vector<std::string,std::allocator<std::string>>' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(866): note: while compiling class template member function 'void std::vector<std::string,std::allocator<std::string>>::push_back(const _Ty &)'
+        with
+        [
+            _Ty=std::string
+        ]
+libfuzzer\FuzzerIOWindows.cpp(149): note: see the first reference to 'std::vector<std::string,std::allocator<std::string>>::push_back' in 'fuzzer::ListFilesInDirRecursive'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(867): note: see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<const _Ty&>(const _Ty &)' being compiled
+        with
+        [
+            _Ty=std::string
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(779): note: see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>> *std::vector<std::string,std::allocator<std::string>>::_Emplace_reallocate<const _Ty&>(std::basic_string<char,std::char_traits<char>,std::allocator<char>> *const ,const _Ty &)' being compiled
+        with
+        [
+            _Ty=std::string
+        ]
+FuzzerUtilWindows.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\ostream(787): note: the template instantiation context (the oldest one first) is
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\libfuzzer-sys-0.4.10\libfuzzer\FuzzerCommand.h(144): note: see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+exit code: 0
+cargo:rerun-if-env-changed=AR_x86_64-pc-windows-msvc
+AR_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=AR_x86_64_pc_windows_msvc
+AR_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_AR
+HOST_AR = None
+cargo:rerun-if-env-changed=AR
+AR = None
+cargo:rerun-if-env-changed=ARFLAGS
+ARFLAGS = None
+cargo:rerun-if-env-changed=HOST_ARFLAGS
+HOST_ARFLAGS = None
+cargo:rerun-if-env-changed=ARFLAGS_x86_64_pc_windows_msvc
+ARFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=ARFLAGS_x86_64-pc-windows-msvc
+ARFLAGS_x86_64-pc-windows-msvc = None
+cargo:rustc-link-search=native=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\atlmfc\lib\x64
+cargo:rustc-link-lib=static=fuzzer
+cargo:rustc-link-search=native=C:\users\andre\downloads\R_Citadel\fuzz\target\x86_64-pc-windows-msvc\release\build\libfuzzer-sys-a65d633212f628a8\out
+cargo:rerun-if-env-changed=CXXSTDLIB_x86_64-pc-windows-msvc
+CXXSTDLIB_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CXXSTDLIB_x86_64_pc_windows_msvc
+CXXSTDLIB_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_CXXSTDLIB
+HOST_CXXSTDLIB = None
+cargo:rerun-if-env-changed=CXXSTDLIB
+CXXSTDLIB = None

@@ -118,7 +118,7 @@ For:
 - Custom algorithm requirements
 - Volume licensing
 
-Contact for pricing: [sales-email]
+Contact for pricing: andre.cordero36@outlook.com
 
 ---
 
@@ -167,6 +167,6 @@ Yes. We offer incident-based support at $500/hour (4-hour minimum). This does no
 
 ## Contact
 
-- **Sales:** [sales-email]
-- **General questions:** [support-email]
+- **Sales:** andre.cordero36@outlook.com
+- **General questions:** dreamerdre45@gmail.com
 - **Security issues:** See [SECURITY.md](./SECURITY.md)

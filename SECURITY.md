@@ -31,7 +31,7 @@ Only the latest release receives security fixes.
 
 ### Alternative: Direct Contact
 
-Email: [maintainer-email]
+Email: andre.cordero36@gmail.com
 
 PGP key available at: [keyserver-link]
 
@@ -175,6 +175,6 @@ If you require audited cryptography, consider:
 
 ## Contact
 
-- **Security issues**: [security-email]
+- **Security issues**: andre.cordero36@gmail.com
 - **General questions**: GitHub Discussions
-- **Commercial support**: [sales-email]
+- **Commercial support**: andre.cordero36@outlook.com

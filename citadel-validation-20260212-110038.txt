@@ -1,0 +1,36 @@
+﻿CITADEL VALIDATION REPORT
+Date: 2026-02-12 11:00:38
+Server: http://localhost:3000
+Results: 21 PASS / 0 FAIL / 0 WARN
+============================================================
+
+[PASS] CONNECT :: API server reachable at http://localhost:3000
+[INFO] CONNECT :: Initial threat level: 1 ()
+[INFO] BASELINE :: Using DEK: prod-dek-legacy (01bcc9c866032b12b51f045ba020c819)
+[PASS] ENCRYPT :: Encryption succeeded -- ciphertext 2354 hex chars
+[PASS] DECRYPT :: Decryption roundtrip correct
+[INFO] MEASURED :: Threat score before bad decrypt: 0
+[PASS] MEASURED :: Wrong-AAD decrypt correctly rejected
+[PASS] MEASURED :: Threat score after bad decrypt: 3 (delta: +3)
+[PASS] MEASURED :: DecryptionFailure event auto-emitted into threat engine
+[INFO] MEASURED :: After 4 total bad decrypts: score 12 (total delta: +12)
+[INFO] ESCALATE :: Threat score: 102, Level: 5 (CRITICAL)
+[PASS] ESCALATE :: Reached CRITICAL (level 5)
+[INFO] FLOORS :: Policy compression at current threat level:
+[PASS] FLOORS ::   Default DEK Policy rotation: 90d to 18d (floor: 1d)
+[PASS] FLOORS ::   Default DEK Policy grace: 7d to 0.7d (floor: 0.5d)
+[PASS] FLOORS ::   Default DEK Policy max_life: 365d to 91.25d (floor: 30d)
+[PASS] FLOORS ::   Default DEK Policy auto_rotate: forced ON
+[PASS] FLOORS ::   Default KEK Policy rotation: 365d to 73d (floor: 1d)
+[PASS] FLOORS ::   Default KEK Policy grace: 30d to 3d (floor: 0.5d)
+[PASS] FLOORS ::   Default KEK Policy auto_rotate: forced ON
+[PASS] ENFORCE :: Fresh key encrypts at current threat (compliant -- age under rotation limit)
+[PASS] ENFORCE :: Non-existent key returns 400 (not 403) -- error types distinguished
+[INFO] HYSTERESIS :: Before reset: score=102, level=5 ()
+[INFO] HYSTERESIS :: After reset: score=102, level=5 ()
+[PASS] HYSTERESIS :: Score still above CRITICAL threshold -- level correctly holds
+[PASS] CHAIN :: Audit file found: C:\Users\andre\downloads\R_Citadel\citadel-audit.jsonl (105 events)
+[PASS] CHAIN :: First event has sequence=0
+[PASS] CHAIN :: First event has prev_hash (genesis): 2915be114d059679...
+[PASS] CHAIN :: Chain continuous: sequence 0 through 40
+[INFO] CHAIN :: Last event: seq=40 action={"EncryptionPerformed":{"key_version":2}}
