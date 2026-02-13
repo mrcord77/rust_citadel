@@ -6,3 +6,14 @@
 mykey.pub
 mykey.sec
 secret.txt
+
+target/
+citadel-envelope/fuzz/target/
+citadel-envelope/target/
+citadel-keystore/target/
+citadel-api/target/
+secret.txt
+citadel-backups/
+citadel-data/
+.env
+api-keys.json
