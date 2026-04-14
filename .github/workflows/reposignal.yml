@@ -13,3 +13,4 @@ jobs:
       - uses: RepoSignal-io/reposignal-action@v1
         with:
           api-key: ${{ secrets.REPOSIGNAL_API_KEY }}
+          api-url: https://reposignal.onrender.com
