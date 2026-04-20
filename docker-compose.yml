@@ -1,0 +1,38 @@
+# =============================================================================
+# Citadel API Server - Docker Compose
+#
+# Quick start:
+#   docker compose up -d
+#
+# With custom API key:
+#   CITADEL_API_KEY=my-secret-key docker compose up -d
+#
+# Dashboard: http://localhost:3000
+# API:       http://localhost:3000/api/status
+# =============================================================================
+
+services:
+  citadel:
+    build: .
+    image: citadel:latest
+    container_name: citadel-api
+    ports:
+      - "${CITADEL_PORT:-3000}:3000"
+    environment:
+      - CITADEL_PORT=3000
+      - CITADEL_DATA_DIR=/data
+      - CITADEL_API_KEY=${CITADEL_API_KEY:-}
+      - CITADEL_SEED_DEMO=${CITADEL_SEED_DEMO:-true}
+    volumes:
+      - citadel-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  citadel-data:
+    driver: local

@@ -1,0 +1,38 @@
+# =============================================================================
+# citadel-api/Cargo.toml — ADDITIONS NEEDED
+#
+# Add these dependencies to your existing citadel-api/Cargo.toml.
+# sha2 and subtle may already be transitive deps, but must be direct for use.
+# =============================================================================
+
+[package]
+name = "citadel-api"
+version = "0.2.0"
+edition = "2021"
+
+[[bin]]
+name = "citadel-api"
+path = "src/main.rs"
+
+[[bin]]
+name = "hash-apikey"
+path = "src/hash_apikey.rs"
+
+[dependencies]
+axum = { version = "0.7", features = ["macros"] }
+chrono = { version = "0.4", features = ["serde"] }
+citadel-envelope = { path = "../citadel-envelope" }
+citadel-keystore = { path = "../citadel-keystore" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# NEW: Tier 1 security hardening
+sha2 = "0.10"                 # API key hashing
+subtle = "2"                  # Constant-time comparison
+hex = "0.4"                   # Hash encoding/decoding
+getrandom = "0.2"             # Random key generation (hash-apikey binary)

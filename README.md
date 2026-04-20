@@ -1,116 +1,282 @@
-# Citadel Envelope
+# Citadel
 
-Post-quantum hybrid encryption using **X25519 + ML-KEM-768 + AES-256-GCM**.
+Post-quantum hybrid encryption and key management server.
 
-[![Crates.io](https://img.shields.io/crates/v/citadel-envelope.svg)](https://crates.io/crates/citadel-envelope)
-[![Documentation](https://docs.rs/citadel-envelope/badge.svg)](https://docs.rs/citadel-envelope)
-[![License](https://img.shields.io/crates/l/citadel-envelope.svg)](LICENSE)
+Citadel combines X25519 + ML-KEM-768 for key encapsulation and AES-256-GCM for data encryption, following NIST's hybrid approach for the post-quantum transition. Applications encrypt and decrypt data through a REST API. Citadel manages the keys — generation, rotation, revocation, access control, and audit logging.
 
-## Overview
+**Status:** Working implementation. Unaudited. No production deployments. See [Security](#security) below.
 
-Citadel Envelope provides defense-in-depth hybrid encryption:
+---
 
-- **X25519**: Classical ECDH, protects if ML-KEM is broken by cryptanalysis
-- **ML-KEM-768**: Post-quantum KEM (FIPS 203), protects against quantum computers
-- **AES-256-GCM**: Authenticated encryption for the payload
+## What It Does
 
-This is the same approach used by Signal, Chrome, and Cloudflare.
+```
+Your Application              Citadel                         Database
+       |                         |                               |
+       |-- POST /encrypt ------->|                               |
+       |                         |-- hybrid KEM (X25519+ML-KEM)  |
+       |                         |-- derive AES-256 key (HKDF)   |
+       |                         |-- encrypt with AES-256-GCM    |
+       |<-- encrypted blob ------|                               |
+       |                                                         |
+       |-- store blob ------------------------------------------>|
+```
 
-## Features
+Your application never touches raw key material. The encrypted blob is self-contained — it includes the wrapped key, algorithm identifiers, and ciphertext. Store it in any database. Decrypt by sending it back to Citadel with the same AAD and context.
 
-- 🔐 **Defense-in-depth**: Secure if either X25519 OR ML-KEM is secure
-- 📦 **Simple API**: `encrypt()` / `decrypt()` with context binding
-- 🛡️ **No timing oracles**: Uniform error handling
-- 🔒 **Constant-time**: Uses vetted primitives
-- 📏 **Locked constraints**: Interoperability by design
-- 🦀 **No unsafe**: Pure safe Rust
-- 📚 **no_std**: Works without standard library
+## Architecture
+
+```
+citadel-envelope    Hybrid encryption core (X25519 + ML-KEM-768 + AES-256-GCM)
+citadel-keystore    Key lifecycle management, 4-level hierarchy, threat-adaptive policies
+citadel-api         HTTP server, scoped API key auth, rate limiting, real-time dashboard
+```
 
 ## Quick Start
 
-```rust
-use citadel_envelope::HybridEnvelope;
+### Docker (recommended)
 
-// Create envelope and generate keys
-let envelope = HybridEnvelope::new();
-let (public_key, secret_key) = envelope.keygen();
+```bash
+# Clone
+git clone https://github.com/mrcord77/rust_citadel.git
+cd rust_citadel
 
-// Encrypt
-let plaintext = b"Hello, post-quantum world!";
-let aad = b"metadata";      // Authenticated but not encrypted
-let context = b"my-app-v1"; // Domain separation
+# Set your admin API key
+echo -n "your-secret-key" | sha256sum | cut -d' ' -f1
+# Copy the hash
 
-let ciphertext = envelope.encrypt(&public_key, plaintext, aad, context)?;
+# Start
+CITADEL_API_KEY_HASH=<paste-hash> docker compose up -d
 
-// Decrypt
-let decrypted = envelope.decrypt(&secret_key, &ciphertext, aad, context)?;
-assert_eq!(decrypted, plaintext);
+# Verify
+curl http://localhost:3000/health
+# {"status":"ok","version":"0.2.0"}
 ```
 
-## Protocol Constraints
+Dashboard: http://localhost:3000
 
-The following limits are enforced for interoperability:
+### From Source
 
-| Parameter | Limit | Notes |
-|-----------|-------|-------|
-| AAD | 64 KiB | Metadata, timestamps, etc. |
-| Context | 256 bytes | Application identifier |
-| Plaintext | ~4 GiB | AES-GCM practical limit |
+Requires Rust 1.75+.
 
-## Ciphertext Overhead
-
-| Component | Size |
-|-----------|------|
-| Header | 6 bytes |
-| X25519 ephemeral | 32 bytes |
-| ML-KEM ciphertext | 1088 bytes |
-| Nonce | 12 bytes |
-| Tag | 16 bytes |
-| **Total overhead** | **1154 bytes** |
-
-## Security Properties
-
-1. **Confidentiality** — Message content is encrypted
-2. **Integrity** — Tampering is detected via AEAD tag
-3. **Context Binding** — Context is bound via KDF
-4. **AAD Binding** — Additional data is authenticated
-5. **Ciphertext Binding** — KEM ciphertext is bound to AES key
-6. **Uniform Errors** — All failures return opaque "decryption failed"
-7. **Defense-in-Depth** — Secure if either X25519 OR ML-KEM is secure
-
-## Wire Format
-
-See [SPEC.md](SPEC.md) for the complete wire format specification.
-
-```text
-ciphertext =
-    version[1]       ||  // 0x01
-    suite_kem[1]     ||  // 0xA3
-    suite_aead[1]    ||  // 0xB1
-    flags[1]         ||  // 0x00
-    kem_ct_len[2]    ||  // 1120 (big-endian)
-    x25519_ct[32]    ||  // Ephemeral public key
-    mlkem_ct[1088]   ||  // ML-KEM ciphertext
-    nonce[12]        ||  // AES-GCM nonce
-    aead_ct[>=16]        // Ciphertext + tag
+```bash
+cargo build --release -p citadel-api
+CITADEL_API_KEY="your-secret-key" CITADEL_SEED_DEMO=true ./target/release/citadel-api
 ```
 
-## Minimum Supported Rust Version
+## Usage
 
-Rust 1.74 or later.
+### Python
+
+```python
+import requests
+
+api = "http://localhost:3000"
+headers = {"Authorization": "Bearer your-secret-key"}
+
+# Encrypt
+r = requests.post(f"{api}/api/keys/{dek_id}/encrypt", headers=headers, json={
+    "plaintext": "sensitive data",
+    "aad": "record-001",        # binds ciphertext to this record
+    "context": "patient-records" # domain separation
+})
+blob = r.json()
+
+# Decrypt
+r = requests.post(f"{api}/api/decrypt", headers=headers, json={
+    "blob": blob,
+    "aad": "record-001",
+    "context": "patient-records"
+})
+plaintext = r.json()["plaintext"]
+```
+
+See [citadel_example.py](citadel_example.py) for a complete working example with AAD binding, key rotation, and threat-aware application behavior.
+
+### curl
+
+```bash
+# Status
+curl http://localhost:3000/api/status -H "Authorization: Bearer $KEY"
+
+# List keys
+curl http://localhost:3000/api/keys -H "Authorization: Bearer $KEY"
+
+# Encrypt
+curl -X POST http://localhost:3000/api/keys/$DEK_ID/encrypt \
+  -H "Authorization: Bearer $KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"plaintext":"hello","aad":"test","context":"demo"}'
+```
+
+## API Endpoints
+
+| Endpoint | Method | Scope | Description |
+|----------|--------|-------|-------------|
+| `/health` | GET | — | Health check |
+| `/api/status` | GET | read | Threat level, key counts |
+| `/api/metrics` | GET | read | Security metrics |
+| `/api/keys` | GET | read | List all keys |
+| `/api/keys` | POST | manage | Generate new key |
+| `/api/keys/:id` | GET | read | Get key details |
+| `/api/keys/:id/activate` | POST | manage | Activate a pending key |
+| `/api/keys/:id/rotate` | POST | manage | Rotate key (new version) |
+| `/api/keys/:id/revoke` | POST | manage | Permanently revoke key |
+| `/api/keys/:id/destroy` | POST | manage | Destroy key material |
+| `/api/keys/:id/encrypt` | POST | encrypt | Encrypt data |
+| `/api/decrypt` | POST | encrypt | Decrypt data |
+| `/api/threat` | GET | read | Threat intelligence details |
+| `/api/policies` | GET | read | Active key policies |
+| `/api/auth/whoami` | GET | read | Current API key info |
+| `/api/auth/keys` | GET | admin | List API keys |
+| `/api/auth/keys` | POST | admin | Create API key |
+| `/api/auth/keys/:id` | DELETE | admin | Revoke API key |
+
+## Key Hierarchy
+
+```
+Root Key
+  └── Domain Key (per environment / business unit)
+        └── KEK — Key Encrypting Key (wraps DEKs)
+              └── DEK — Data Encrypting Key (encrypts application data)
+```
+
+Follows NIST SP 800-57. Each level contains the blast radius of a compromise — a leaked DEK doesn't expose other DEKs because the KEK is separate.
+
+## API Key Scopes
+
+| Scope | Permissions |
+|-------|-------------|
+| `read` | View keys, status, metrics, threat level |
+| `encrypt` | Encrypt and decrypt data |
+| `manage` | Create, rotate, revoke, destroy keys |
+| `admin` | All of the above + manage API keys |
+
+`admin` implies all other scopes. Principle of least privilege: give monitoring dashboards `read`, application services `read + encrypt`, admin tools `admin`.
+
+## Adaptive Threat System
+
+Citadel monitors security events and automatically adjusts key policies:
+
+| Level | Trigger | Response |
+|-------|---------|----------|
+| LOW | Normal operations | Standard crypto-periods |
+| GUARDED | Minor anomalies | Slightly tighter rotation |
+| ELEVATED | Suspicious patterns | Compressed rotation schedules |
+| HIGH | Active threat indicators | Forced rotation, reduced usage limits |
+| CRITICAL | Under attack | Maximum restrictions |
+
+Events that raise threat level: failed authentication, decryption failures, rapid access patterns, manual escalation. Score decays over time.
+
+## Cryptography
+
+| Component | Algorithm | Standard |
+|-----------|-----------|----------|
+| Key encapsulation (classical) | X25519 ECDH | RFC 7748 |
+| Key encapsulation (post-quantum) | ML-KEM-768 | FIPS 203 |
+| Data encryption | AES-256-GCM | NIST SP 800-38D |
+| Key derivation | HKDF-SHA256 | NIST SP 800-56C |
+
+Hybrid construction: both shared secrets are concatenated and fed through HKDF. Security holds if **either** X25519 or ML-KEM-768 remains secure.
+
+### Wire Format
+
+```
+version[1] || suite_kem[1] || suite_aead[1] || flags[1] || kem_ct_len[2] ||
+x25519_ephemeral_pk[32] || mlkem768_ct[1088] || nonce[12] || aead_ct[variable]
+```
+
+Self-describing, versioned, no negotiation (prevents downgrade attacks). See [SPEC.md](SPEC.md) for full specification.
+
+### Security Properties
+
+- **Constant-time comparison** — API key verification via `subtle` crate prevents timing attacks
+- **Zeroization** — All shared secrets and AES keys wrapped in `Zeroizing<T>`, zeroed on drop
+- **Uniform errors** — Decryption failures return identical error messages (no decryption oracle)
+- **Integrity-chained audit log** — SHA-256 hash chain detects log tampering
+- **Rate limiting** — Per-IP token bucket with threat escalation on violations
+
+## Security
+
+**Citadel is unaudited software.**
+
+The implementation uses NIST-standardized primitives via established Rust crates (`ml-kem`, `x25519-dalek`, `aes-gcm`, `hkdf`). It does not implement any cryptographic algorithms. The value is in correct composition, not novel math.
+
+What has been done:
+- Comprehensive test suite including known-answer tests
+- Fuzz testing of wire format parser and full decryption path
+- Timing analysis of encryption/decryption operations
+- Uniform error handling to prevent decryption oracles
+
+What has NOT been done:
+- Independent security audit
+- Formal verification
+- FIPS validation
+- Production deployment
+
+**Do not use for sensitive data without independent review.** See [SECURITY.md](SECURITY.md) for vulnerability reporting.
+
+## Compliance
+
+Mapped against 34 NIST SP 800-57 controls: 26 satisfied, 7 partial, 1 gap. See [COMPLIANCE_MATRIX.md](COMPLIANCE_MATRIX.md) for the full mapping.
+
+Relevant frameworks: NIST SP 800-57 (key management), CNSA 2.0 (PQC timeline), HIPAA (encryption at rest), SOC 2 (access controls and audit).
+
+## Project Structure
+
+```
+rust_citadel/
+├── citadel-envelope/        # Core hybrid encryption library
+│   ├── src/
+│   │   ├── envelope.rs      # Encrypt/decrypt operations
+│   │   ├── kem.rs           # X25519 + ML-KEM-768 hybrid KEM
+│   │   ├── kdf.rs           # HKDF-SHA256 key derivation
+│   │   ├── wire.rs          # Wire format encode/decode
+│   │   ├── aead.rs          # AES-256-GCM wrapper
+│   │   ├── aad.rs           # Additional authenticated data
+│   │   ├── error.rs         # Uniform error types
+│   │   └── sdk.rs           # High-level API
+│   ├── tests/               # KAT + roundtrip tests
+│   └── fuzz/                # Fuzz targets
+├── citadel-keystore/        # Key lifecycle management
+│   └── src/
+│       ├── keystore.rs      # Key CRUD + state machine
+│       ├── policy.rs        # Crypto-period policies
+│       ├── threat.rs        # Adaptive threat intelligence
+│       ├── storage.rs       # File-based key storage
+│       ├── audit.rs         # Integrity-chained audit log
+│       └── types.rs         # Key types and states
+├── citadel-api/             # HTTP server
+│   └── src/
+│       ├── main.rs          # API routes, auth, rate limiting
+│       └── dashboard.html   # Real-time security dashboard
+├── citadel_example.py       # Python integration example
+├── Backup-Citadel.ps1       # Backup/restore tooling
+├── docker-compose.yml       # Development deployment
+├── docker-compose-production.yml  # Production with TLS
+├── SPEC.md                  # Wire format specification
+├── THREAT_MODEL.md          # Security goals and attacker model
+├── COMPLIANCE_MATRIX.md     # NIST 800-57 control mapping
+└── CITADEL_OVERVIEW.md      # Commercial overview
+```
+
+## Documentation
+
+| Document | Audience |
+|----------|----------|
+| [SPEC.md](SPEC.md) | Wire format specification |
+| [THREAT_MODEL.md](THREAT_MODEL.md) | Security goals and assumptions |
+| [COMPLIANCE_MATRIX.md](COMPLIANCE_MATRIX.md) | NIST 800-57 compliance mapping |
+| [CITADEL_OVERVIEW.md](CITADEL_OVERVIEW.md) | Commercial positioning |
+| [SECURITY.md](SECURITY.md) | Vulnerability reporting |
+| [API_FREEZE.md](API_FREEZE.md) | API stability guarantees |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Production deployment guide |
+| [QUICKSTART.md](QUICKSTART.md) | Getting started |
 
 ## License
 
-Licensed under either of:
+Dual licensed under [Apache 2.0](LICENSE-APACHE) and [MIT](LICENSE-MIT).
 
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
-- MIT License ([LICENSE-MIT](LICENSE-MIT))
+## Author
 
-at your option.
-
-## References
-
-- [FIPS 203](https://csrc.nist.gov/pubs/fips/203/final) — ML-KEM Standard
-- [RFC 7748](https://www.rfc-editor.org/rfc/rfc7748) — X25519
-- [RFC 5116](https://www.rfc-editor.org/rfc/rfc5116) — AEAD Interface
-- [Signal X3DH](https://signal.org/docs/specifications/x3dh/) — Hybrid inspiration
+Andre Cordero — andre.cordero36@gmail.com
