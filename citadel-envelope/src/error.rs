@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Unified error types for Citadel Envelope.
 
 use core::fmt;
