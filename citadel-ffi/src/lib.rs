@@ -23,16 +23,12 @@ use std::slice;
 
 use citadel_envelope::{Aad, Citadel, Context, PublicKey, SecretKey};
 
-// ── Error codes ──────────────────────────────────────────────────────────────
-
 pub const CITADEL_OK: i32 = 0;
 pub const CITADEL_ERR_NULL: i32 = 1;
 pub const CITADEL_ERR_SEAL: i32 = 2;
 pub const CITADEL_ERR_OPEN: i32 = 3;
 pub const CITADEL_ERR_KEY: i32 = 4;
 pub const CITADEL_ERR_ALLOC: i32 = 5;
-
-// ── Internal helpers ─────────────────────────────────────────────────────────
 
 fn alloc_buf(size: usize) -> *mut u8 {
     if size == 0 {
@@ -59,8 +55,6 @@ fn write_output(data: &[u8], out_ptr: *mut *mut u8, out_len: *mut usize) -> i32 
     CITADEL_OK
 }
 
-// ── Public API ────────────────────────────────────────────────────────────────
-
 /// Size of a serialized public key in bytes (1216).
 #[no_mangle]
 pub extern "C" fn citadel_public_key_bytes() -> usize {
@@ -74,8 +68,12 @@ pub extern "C" fn citadel_secret_key_bytes() -> usize {
 }
 
 /// Generate a new hybrid keypair.
-/// Writes public key into *pk_out/*pk_len and secret key into *sk_out/*sk_len.
-/// Caller must free both buffers with citadel_free().
+///
+/// Writes public key into `*pk_out`/`*pk_len` and secret key into
+/// `*sk_out`/`*sk_len`. Caller must free both with `citadel_free`.
+///
+/// # Safety
+/// All pointer arguments must be valid, non-null, and properly aligned.
 #[no_mangle]
 pub unsafe extern "C" fn citadel_keygen(
     pk_out: *mut *mut u8,
@@ -96,7 +94,12 @@ pub unsafe extern "C" fn citadel_keygen(
 }
 
 /// Encrypt plaintext to a recipient public key.
-/// Caller must free *ct_out with citadel_free(*ct_out, *ct_len_out).
+///
+/// Caller must free `*ct_out` with `citadel_free(*ct_out, *ct_len_out)`.
+///
+/// # Safety
+/// All non-null pointer arguments must be valid and properly aligned.
+/// `aad_ptr` and `ctx_ptr` may be null (treated as empty).
 #[no_mangle]
 pub unsafe extern "C" fn citadel_seal(
     pk_ptr: *const u8,
@@ -143,7 +146,12 @@ pub unsafe extern "C" fn citadel_seal(
 }
 
 /// Decrypt a ciphertext using the recipient secret key.
-/// Caller must free *pt_out with citadel_free(*pt_out, *pt_len_out).
+///
+/// Caller must free `*pt_out` with `citadel_free(*pt_out, *pt_len_out)`.
+///
+/// # Safety
+/// All non-null pointer arguments must be valid and properly aligned.
+/// `aad_ptr` and `ctx_ptr` may be null (treated as empty).
 #[no_mangle]
 pub unsafe extern "C" fn citadel_open(
     sk_ptr: *const u8,
@@ -190,7 +198,12 @@ pub unsafe extern "C" fn citadel_open(
 }
 
 /// Free a buffer allocated by citadel_keygen, citadel_seal, or citadel_open.
+///
 /// Passing NULL is safe. Length must exactly match what was returned.
+///
+/// # Safety
+/// `ptr` must have been allocated by citadel and `len` must match exactly.
+/// Passing a wrong length is undefined behavior.
 #[no_mangle]
 pub unsafe extern "C" fn citadel_free(ptr: *mut u8, len: usize) {
     if ptr.is_null() || len == 0 {
