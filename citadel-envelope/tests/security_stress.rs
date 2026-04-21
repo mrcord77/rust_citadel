@@ -80,16 +80,23 @@ fn timing_bad_aad_vs_bad_ciphertext_uniform() {
     let mean_tampered = mean(&times_tampered);
     let diff_pct = ((mean_bad_aad - mean_tampered).abs() / mean_tampered) * 100.0;
 
-    println!("Timing — bad AAD:        mean={:.0}ns  stddev={:.0}ns", mean_bad_aad, stddev(&times_bad_aad));
-    println!("Timing — tampered ct:    mean={:.0}ns  stddev={:.0}ns", mean_tampered, stddev(&times_tampered));
-    println!("Timing — difference:     {:.1}%", diff_pct);
+    println!(
+        "Timing — bad AAD:     mean={:.0}ns  stddev={:.0}ns",
+        mean_bad_aad,
+        stddev(&times_bad_aad)
+    );
+    println!(
+        "Timing — tampered ct: mean={:.0}ns  stddev={:.0}ns",
+        mean_tampered,
+        stddev(&times_tampered)
+    );
+    println!("Timing — difference:  {:.1}%", diff_pct);
 
-    // ML-KEM decapsulation (wrong key path) is inherently more expensive than
-    // AEAD tag verification (bad AAD path). 40% threshold accounts for this
-    // structural difference while still catching catastrophic timing leaks.
+    // Allow up to 25% difference — tighter than typical 50% threshold.
+    // Real constant-time implementations should be well under 10%.
     assert!(
-        diff_pct < 40.0,
-        "Timing difference between wrong-key and bad-AAD is {:.1}% — possible side channel",
+        diff_pct < 25.0,
+        "Timing difference between bad-AAD and tampered-ciphertext is {:.1}% — possible side channel",
         diff_pct
     );
 }
@@ -126,8 +133,12 @@ fn timing_wrong_key_vs_bad_aad_uniform() {
     println!("Timing — bad AAD:    mean={:.0}ns", mean(&times_bad_aad));
     println!("Timing — diff:       {:.1}%", diff_pct);
 
+    // ML-KEM decapsulation (wrong key) is more expensive than AEAD tag
+    // verification (bad AAD) — this is a structural difference, not a
+    // side channel. 40% threshold catches catastrophic leaks while
+    // accounting for this known asymmetry.
     assert!(
-        diff_pct < 25.0,
+        diff_pct < 40.0,
         "Timing difference between wrong-key and bad-AAD is {:.1}%",
         diff_pct
     );
@@ -513,7 +524,11 @@ fn ciphertext_length_depends_only_on_plaintext_length() {
     let ct2 = cit.seal(&pk, b"zzzzzzzz", &aad, &ctx).unwrap();
     let ct3 = cit.seal(&pk, b"12345678", &aad, &ctx).unwrap();
 
-    assert_eq!(ct1.len(), ct2.len(), "Same-length plaintexts produce different-length ciphertexts");
+    assert_eq!(
+        ct1.len(),
+        ct2.len(),
+        "Same-length plaintexts produce different-length ciphertexts"
+    );
     assert_eq!(ct1.len(), ct3.len());
 }
 
@@ -589,7 +604,9 @@ fn error_type_carries_no_information() {
     let (_, _, sk2) = setup();
 
     let err_bad_aad = cit.open(&sk, &ct, &Aad::raw(b"wrong"), &ctx).unwrap_err();
-    let err_bad_ctx = cit.open(&sk, &ct, &aad, &Context::raw(b"wrong")).unwrap_err();
+    let err_bad_ctx = cit
+        .open(&sk, &ct, &aad, &Context::raw(b"wrong"))
+        .unwrap_err();
     let err_bad_key = cit.open(&sk2, &ct, &aad, &ctx).unwrap_err();
     let err_truncated = cit.open(&sk, b"short", &aad, &ctx).unwrap_err();
 
@@ -614,9 +631,7 @@ fn plaintext_not_in_ciphertext() {
     let ctx = Context::raw(b"ctx");
     let ct = cit.seal(&pk, plaintext, &aad, &ctx).unwrap();
 
-    let ct_str = ct
-        .windows(plaintext.len())
-        .any(|w| w == plaintext);
+    let ct_str = ct.windows(plaintext.len()).any(|w| w == plaintext);
 
     assert!(
         !ct_str,
