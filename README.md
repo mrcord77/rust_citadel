@@ -286,8 +286,6 @@ See [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md) for terms and pricing.
 
 Contact: commit@reposignal.io
 
-Dual licensed under [Apache 2.0](LICENSE-APACHE) and [MIT](LICENSE-MIT).
-
 ## Author
 
 Andre Cordero — andre.cordero36@gmail.com
