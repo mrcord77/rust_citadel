@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Known Answer / envelope-only tests (v1 structured wire)
 
 use citadel_envelope::{wire, Aad, Citadel, Context, OpenError};
