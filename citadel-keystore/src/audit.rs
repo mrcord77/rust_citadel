@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Audit logging: every key operation emits a structured event.
 
 use crate::types::{KeyId, KeyState, KeyType};
