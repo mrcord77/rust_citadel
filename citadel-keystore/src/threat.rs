@@ -444,7 +444,7 @@ impl ThreatAssessor {
     fn prune_old_events(&mut self) {
         let cutoff = Utc::now()
             - ChronoDuration::from_std(self.config.window).unwrap_or(ChronoDuration::MAX);
-        while self.events.front().map_or(false, |e| e.timestamp < cutoff) {
+        while self.events.front().is_some_and(|e| e.timestamp < cutoff) {
             self.events.pop_front();
         }
         while self.events.len() > self.config.max_events {

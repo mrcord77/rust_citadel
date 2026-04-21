@@ -134,7 +134,7 @@ impl Keystore {
             tags: HashMap::new(),
         };
 
-        self.storage.put(&meta).map_err(|e| GenerateError(e))?;
+        self.storage.put(&meta).map_err(GenerateError)?;
         self.audit.record(AuditEvent::key_event(
             &id,
             key_type,
@@ -358,7 +358,7 @@ impl Keystore {
                     if elapsed.num_seconds() >= warn_secs {
                         let remaining = grace_chrono - elapsed;
                         return ExpirationDecision::Warning {
-                            reason: format!("grace period expiring soon"),
+                            reason: "grace period expiring soon".to_string(),
                             remaining: remaining.to_std().unwrap_or(Duration::ZERO),
                             source: ExpirationSource::GracePeriodExpired,
                         };
@@ -391,7 +391,7 @@ impl Keystore {
                         if elapsed.num_seconds() >= warn_secs {
                             let remaining = max_chrono - elapsed;
                             return ExpirationDecision::Warning {
-                                reason: format!("max lifetime expiring soon"),
+                                reason: "max lifetime expiring soon".to_string(),
                                 remaining: remaining.to_std().unwrap_or(Duration::ZERO),
                                 source: ExpirationSource::MaxLifetimeExceeded,
                             };

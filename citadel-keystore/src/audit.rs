@@ -190,6 +190,10 @@ impl InMemoryAuditSink {
     pub async fn len(&self) -> usize {
         self.events.lock().await.len()
     }
+
+    pub async fn is_empty(&self) -> bool {
+        self.events.lock().await.is_empty()
+    }
 }
 
 impl Default for InMemoryAuditSink {
