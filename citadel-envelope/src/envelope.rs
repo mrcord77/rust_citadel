@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Internal-facing wrapper with stable naming + locked AAD/context builders.
 
 extern crate alloc;
