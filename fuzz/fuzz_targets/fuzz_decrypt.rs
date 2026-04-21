@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Fuzz target for decryption path
 //!
 //! This target exercises the full decrypt path with arbitrary ciphertexts.
