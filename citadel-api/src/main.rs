@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Citadel API Server v0.2.0
 //!
 //! HTTP interface to the keystore + adaptive threat system.
