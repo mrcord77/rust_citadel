@@ -148,10 +148,9 @@ cargo publish
 ## Next Steps
 
 1. **Fill in placeholders** — Replace `[your-email]`, `[sales-email]`, etc.
-2. **Add LICENSE files** — Create `LICENSE-MIT` and `LICENSE-APACHE`
-3. **Create GitHub repo** — `mrcord77/rust_citadel`
-4. **Set up CI** — GitHub Actions for tests + cargo audit
-5. **Write CHANGELOG.md** — Document the 0.1.0 release
+2. **Create GitHub repo** — `mrcord77/rust_citadel`
+3. **Set up CI** — GitHub Actions for tests + cargo audit
+4. **Write CHANGELOG.md** — Document the 0.1.0 release
 
 ## Questions?
 
