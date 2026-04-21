@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Main keystore: key lifecycle management with policy, audit, and envelope integration.
 
 use crate::audit::{AuditAction, AuditEvent, AuditSinkSync};
