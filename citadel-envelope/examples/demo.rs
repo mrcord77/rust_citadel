@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Citadel Envelope — Interactive Demo
 //!
 //! Run with: `cargo run --example demo --features std`
