@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Hash an API key for use with CITADEL_API_KEY_HASH.
 //!
 //! Usage:
