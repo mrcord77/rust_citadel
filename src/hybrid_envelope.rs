@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Hybrid Envelope: X25519 + ML-KEM-768 + AES-256-GCM
 //!
 //! Defense-in-depth post-quantum hybrid encryption.
