@@ -3,5 +3,6 @@ members = [
     "citadel-envelope",
     "citadel-keystore",
     "citadel-api",
+    "citadel-ffi",
 ]
 resolver = "2"
