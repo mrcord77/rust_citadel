@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Hybrid KEM: X25519 + ML-KEM-768
 //!
 //! Combines classical ECDH (X25519) with post-quantum KEM (ML-KEM-768).
