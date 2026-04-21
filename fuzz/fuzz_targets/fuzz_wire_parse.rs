@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Fuzz target for wire format parsing
 //!
 //! This target exercises the `decode_hybrid_wire` function with arbitrary input.
