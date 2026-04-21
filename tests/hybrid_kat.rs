@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Comprehensive tests for the X25519 + ML-KEM-768 hybrid envelope
 //!
 //! This test suite covers:
