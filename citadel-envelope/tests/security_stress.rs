@@ -125,9 +125,8 @@ fn timing_wrong_key_vs_bad_aad_uniform() {
         iterations,
     );
 
-    let diff_pct = ((mean(&times_wrong_key) - mean(&times_bad_aad)).abs()
-        / mean(&times_bad_aad))
-        * 100.0;
+    let diff_pct =
+        ((mean(&times_wrong_key) - mean(&times_bad_aad)).abs() / mean(&times_bad_aad)) * 100.0;
 
     println!("Timing — wrong key:  mean={:.0}ns", mean(&times_wrong_key));
     println!("Timing — bad AAD:    mean={:.0}ns", mean(&times_bad_aad));
@@ -167,7 +166,10 @@ fn timing_truncated_vs_full_bad() {
         iterations,
     );
 
-    println!("Timing — truncated(10): mean={:.0}ns", mean(&times_truncated));
+    println!(
+        "Timing — truncated(10): mean={:.0}ns",
+        mean(&times_truncated)
+    );
     println!("Timing — empty:         mean={:.0}ns", mean(&times_empty));
 
     // Truncated inputs should fail fast and uniformly — no long computation
@@ -206,7 +208,10 @@ fn nonce_uniqueness_under_volume() {
         }
     }
 
-    println!("Nonce uniqueness: {} encryptions, {} collisions", count, collisions);
+    println!(
+        "Nonce uniqueness: {} encryptions, {} collisions",
+        count, collisions
+    );
     assert_eq!(
         collisions, 0,
         "Nonce collision detected across {} encryptions — critical AES-GCM failure",
@@ -226,7 +231,12 @@ fn nonce_uniqueness_multiple_keypairs() {
         let cit = Citadel::new();
         let (pk, _) = cit.generate_keypair();
         let ct = cit
-            .seal(&pk, b"same plaintext", &Aad::raw(b"aad"), &Context::raw(b"ctx"))
+            .seal(
+                &pk,
+                b"same plaintext",
+                &Aad::raw(b"aad"),
+                &Context::raw(b"ctx"),
+            )
             .unwrap();
         let parts = wire::decode_wire(&ct).expect("wire decode");
         nonces.insert(parts.nonce.to_vec());
@@ -290,12 +300,7 @@ fn bit_flip_anywhere_fails() {
             if tampered != ct {
                 // Only test if actually different
                 if cit
-                    .open(
-                        &sk,
-                        &tampered,
-                        &Aad::raw(b"aad"),
-                        &Context::raw(b"ctx"),
-                    )
+                    .open(&sk, &tampered, &Aad::raw(b"aad"), &Context::raw(b"ctx"))
                     .is_ok()
                 {
                     undetected += 1;
@@ -304,11 +309,7 @@ fn bit_flip_anywhere_fails() {
         }
     }
 
-    assert_eq!(
-        undetected, 0,
-        "{} bit flips went undetected",
-        undetected
-    );
+    assert_eq!(undetected, 0, "{} bit flips went undetected", undetected);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -333,13 +334,17 @@ fn aad_boundary_values() {
 
     // All-zeros AAD
     let zero_aad = vec![0u8; 256];
-    let ct = cit.seal(&pk, plaintext, &Aad::raw(&zero_aad), &ctx).unwrap();
+    let ct = cit
+        .seal(&pk, plaintext, &Aad::raw(&zero_aad), &ctx)
+        .unwrap();
     let pt = cit.open(&sk, &ct, &Aad::raw(&zero_aad), &ctx).unwrap();
     assert_eq!(&pt, plaintext);
 
     // All-ones AAD
     let ones_aad = vec![0xFFu8; 256];
-    let ct = cit.seal(&pk, plaintext, &Aad::raw(&ones_aad), &ctx).unwrap();
+    let ct = cit
+        .seal(&pk, plaintext, &Aad::raw(&ones_aad), &ctx)
+        .unwrap();
     let pt = cit.open(&sk, &ct, &Aad::raw(&ones_aad), &ctx).unwrap();
     assert_eq!(&pt, plaintext);
 
