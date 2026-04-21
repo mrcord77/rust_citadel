@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! AEAD: AES-256-GCM authenticated encryption
 //!
 //! This module provides the symmetric encryption layer using AES-256-GCM.
