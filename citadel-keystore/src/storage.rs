@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Storage backends: where key metadata and material live.
 
 use crate::error::KeystoreError;
