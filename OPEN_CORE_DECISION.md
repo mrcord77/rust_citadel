@@ -4,9 +4,8 @@
 
 Should Citadel be:
 
-1. **Fully Open Source** — everything MIT/Apache-2.0, revenue from support only
-2. **Open-Core** — core library open, premium features closed
-3. **Source-Available** — readable but not truly "open source"
+1. **Open-Core** — core library open, premium features closed
+2. **Source-Available** — readable but not truly "open source"
 
 ## Recommendation: **Fully Open Source with Commercial Support**
 
@@ -44,7 +43,6 @@ You're selling **insurance and expertise**, not code.
 
 If you went open-core, the split would be:
 
-**Open (MIT/Apache-2.0):**
 - Core library (seal/open)
 - Wire format
 - Basic CLI
@@ -64,7 +62,7 @@ If you went open-core, the split would be:
 
 ### The Practical Path
 
-1. **Now:** Publish everything MIT/Apache-2.0
+1. **Now:** 
 2. **First revenue:** Consulting/integration work
 3. **As you grow:** Support tiers
 4. **Maybe later:** Consider closed add-ons (but probably don't need them)
