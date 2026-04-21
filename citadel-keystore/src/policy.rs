@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Policy engine: defines when and how keys rotate, expire, and age out.
 
 use crate::types::{KeyMetadata, KeyState, KeyType, PolicyId};
