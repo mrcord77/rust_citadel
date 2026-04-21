@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Fuzz target for encrypt/decrypt roundtrip
 //!
 //! This target verifies that encrypt(decrypt(x)) == x for arbitrary inputs.
