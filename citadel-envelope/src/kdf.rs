@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! KDF (v1 structured)
 //!
 //! info = PROTOCOL_ID || b"|aes|" || ct_hash || context
