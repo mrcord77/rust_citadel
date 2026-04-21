@@ -505,4 +505,3 @@ fn composition_kdf_plus_aead_pinned() {
     println!("Composition CT:      {}", to_hex(&ct));
     println!("Composition (pinned KDF+AEAD): OK — cross-verified by Python");
 }
-
