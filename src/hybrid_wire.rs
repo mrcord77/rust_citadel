@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Wire format for hybrid envelope (v1 structured)
 //!
 //! # Wire Format
