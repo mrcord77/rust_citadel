@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Wire format (v1 structured)
 //!
 //! Format (v1):
