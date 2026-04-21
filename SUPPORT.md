@@ -2,8 +2,6 @@
 
 ## Overview
 
-Citadel is available under MIT/Apache-2.0 open source license. Commercial support tiers provide additional guarantees and services.
-
 ---
 
 ## Open Source (Free)
