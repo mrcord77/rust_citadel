@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Protocol Constraints
 //!
 //! This module defines hard limits that are enforced at both encryption and
