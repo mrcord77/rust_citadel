@@ -1,14 +1,13 @@
-# =============================================================================
-# citadel-api/Cargo.toml — ADDITIONS NEEDED
-#
-# Add these dependencies to your existing citadel-api/Cargo.toml.
-# sha2 and subtle may already be transitive deps, but must be direct for use.
-# =============================================================================
-
 [package]
 name = "citadel-api"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.74"
+description = "REST API layer for the Citadel post-quantum encryption ecosystem"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/mrcord77/rust_citadel"
+keywords = ["cryptography", "post-quantum", "encryption", "api", "rest"]
+categories = ["cryptography", "web-programming::http-server"]
 
 [[bin]]
 name = "citadel-api"
@@ -30,9 +29,7 @@ tower = "0.4"
 tower-http = { version = "0.5", features = ["cors"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
-
-# NEW: Tier 1 security hardening
-sha2 = "0.10"                 # API key hashing
-subtle = "2"                  # Constant-time comparison
-hex = "0.4"                   # Hash encoding/decoding
-getrandom = "0.2"             # Random key generation (hash-apikey binary)
+sha2 = "0.10"
+subtle = "2"
+hex = "0.4"
+getrandom = "0.2"
