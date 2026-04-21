@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Adaptive Threat Level System
 //!
 //! Dynamically adjusts keystore security posture based on observed threat conditions.
