@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! # Citadel SDK
 //!
 //! Hybrid post-quantum encryption for long-lived data.
