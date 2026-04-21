@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Hybrid KEM: X25519 + ML-KEM-768
 //!
 //! Defense-in-depth: If either primitive is broken, the other still protects.
