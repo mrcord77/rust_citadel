@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Test vector generator for Citadel Envelope
 //!
 //! Generates real test vectors with actual keys and ciphertexts.
