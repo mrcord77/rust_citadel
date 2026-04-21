@@ -43,7 +43,7 @@ fn bench_keygen(c: &mut Criterion) {
     let mut group = c.benchmark_group("keygen");
 
     group.bench_function("citadel_hybrid", |b| {
-        b.iter(|| HybridX25519MlKem768Provider::keygen());
+        b.iter(HybridX25519MlKem768Provider::keygen);
     });
 
     group.bench_function("rsa_2048", |b| {
