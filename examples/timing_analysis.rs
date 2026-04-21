@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Timing analysis for Citadel Envelope decryption
 //!
 //! This tool measures decryption timing across different failure modes
