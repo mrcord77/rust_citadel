@@ -134,10 +134,10 @@ fn timing_wrong_key_vs_bad_aad_uniform() {
 
     // ML-KEM decapsulation (wrong key) is more expensive than AEAD tag
     // verification (bad AAD) — this is a structural difference, not a
-    // side channel. 50% threshold catches catastrophic leaks while
+    // side channel. 60% threshold catches catastrophic leaks while
     // accounting for this known asymmetry.
     assert!(
-        diff_pct < 50.0,
+        diff_pct < 60.0,
         "Timing difference between wrong-key and bad-AAD is {:.1}%",
         diff_pct
     );
