@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! KEM (Key Encapsulation Mechanism) abstractions
 //!
 //! This module defines traits for KEM operations. Currently, only the
