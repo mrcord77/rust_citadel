@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! Comparative benchmarks: Citadel Hybrid vs RSA-2048+AES vs pure AES-256-GCM.
 //!
 //! Run with: `cargo bench --bench comparative`
