@@ -66,6 +66,7 @@ pub fn build_context(env: &str, purpose: &str) -> Vec<u8> {
 /// - ts_ms should be current time in ms
 /// - seq can be 0 if you don't have a channel sequence
 /// - msg_id MUST be unique (per sender) for replay cache / dedupe
+#[allow(clippy::too_many_arguments)]
 pub fn build_aad(
     sender_id: &str,
     recipient_id: &str,

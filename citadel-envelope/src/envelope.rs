@@ -57,6 +57,7 @@ impl Envelope {
     }
 
     /// Build canonical AAD (locked convention).
+    #[allow(clippy::too_many_arguments)]
     pub fn build_aad(
         &self,
         sender_id: &str,
@@ -75,6 +76,7 @@ impl Envelope {
     }
 
     /// Convenience: build context + aad and then seal.
+    #[allow(clippy::too_many_arguments)]
     pub fn seal_internal(
         &self,
         pk: &PublicKey,
@@ -94,6 +96,7 @@ impl Envelope {
     }
 
     /// Convenience: build context + aad and then open.
+    #[allow(clippy::too_many_arguments)]
     pub fn open_internal(
         &self,
         sk: &SecretKey,
