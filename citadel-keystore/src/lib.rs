@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 //! # Citadel Keystore
 //!
 //! Post-quantum key lifecycle management.
