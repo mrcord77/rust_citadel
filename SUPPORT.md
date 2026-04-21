@@ -8,8 +8,6 @@ Citadel is available under MIT/Apache-2.0 open source license. Commercial suppor
 
 ## Open Source (Free)
 
-**License:** MIT OR Apache-2.0
-
 **What you get:**
 - Full source code
 - All features
