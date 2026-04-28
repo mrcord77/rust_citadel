@@ -30,6 +30,8 @@ tower-http = { version = "0.5", features = ["cors"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 sha2 = "0.10"
+# HMAC-SHA256 for API key hashing with server-side secret (P021 fix)
+hmac = "0.12"
 subtle = "2"
 hex = "0.4"
 getrandom = "0.2"
